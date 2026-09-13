@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin Dashboard | XI TKJ 1</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/admin.css">
+  <link rel="stylesheet" href="assets/css/news.css">
+  <link rel="stylesheet" href="assets/css/ui-polish.css">
+</head>
+<body>
+
+  <!-- ===================== LOGIN VIEW ===================== -->
+  <div id="loginView" class="admin-auth">
+    <div class="admin-auth-panel">
+      <div class="admin-auth-brand">
+        <div class="admin-auth-logo"><i class="fa-solid fa-diagram-project"></i></div>
+        <h1>Admin XI TKJ 1</h1>
+        <p>Kelola konten website kelas.</p>
+      </div>
+      <div class="admin-auth-brand-foot">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Akses khusus pengurus website XI TKJ 1</span>
+      </div>
+    </div>
+
+    <div class="admin-auth-formside">
+      <form id="loginForm" class="admin-auth-card">
+        <h2>Masuk</h2>
+        <p class="admin-auth-sub">Masukkan username dan password admin.</p>
+
+        <div class="admin-field">
+          <label for="loginUsername">Username</label>
+          <input id="loginUsername" type="text" autocomplete="username" placeholder="Masukkan username" required>
+        </div>
+
+        <div class="admin-field">
+          <label for="loginPassword">Password</label>
+          <div class="admin-password-wrap">
+            <input id="loginPassword" type="password" autocomplete="current-password" placeholder="••••" required>
+            <button type="button" class="admin-password-toggle" id="loginPasswordToggle" aria-label="Tampilkan password">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="admin-btn admin-btn-primary admin-btn-block" id="loginSubmit">
+          <span class="admin-spinner" hidden></span>
+          <span>Masuk</span>
+        </button>
+
+        <div id="loginError" class="admin-inline-error" hidden></div>
+
+        <a href="index.html" class="admin-back-link" id="backToSiteFromLogin"><i class="fa-solid fa-arrow-left"></i> Kembali ke website</a>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== DASHBOARD VIEW ===================== -->
+  <div id="dashboardView" class="admin-shell" hidden>
+
+    <div class="admin-sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="admin-sidebar-brand">
+        <div class="admin-sidebar-logo"><i class="fa-solid fa-diagram-project"></i></div>
+        <span>XI TKJ 1</span>
+      </div>
+
+      <nav class="admin-nav">
+        <button type="button" class="admin-nav-item is-active" data-panel="dashboard">
+          <i class="fa-solid fa-gauge"></i> <span>Dashboard</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-panel="galeri">
+          <i class="fa-regular fa-image"></i> <span>Galeri</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-panel="berita">
+          <i class="fa-solid fa-newspaper"></i> <span>Berita</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-panel="sosmed">
+          <i class="fa-solid fa-share-nodes"></i> <span>Sosmed</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-panel="siswa">
+          <i class="fa-solid fa-users"></i> <span>Siswa</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-panel="admin" id="navAdminItem" hidden>
+          <i class="fa-solid fa-user-shield"></i> <span>Admin</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-panel="log" id="navLogItem" hidden>
+          <i class="fa-solid fa-clock-rotate-left"></i> <span>Log Aktivitas</span>
+        </button>
+      </nav>
+
+      <div class="admin-nav-bottom">
+        <a href="index.html" class="admin-nav-item" id="backToSiteFromDashboard">
+          <i class="fa-solid fa-arrow-left"></i> <span>Kembali ke Website</span>
+        </a>
+        <button type="button" class="admin-nav-item admin-nav-item-danger" id="logoutBtn">
+          <i class="fa-solid fa-power-off"></i> <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="admin-content">
+      <header class="admin-header">
+        <button type="button" class="admin-hamburger" id="sidebarToggle" aria-label="Buka menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="admin-header-text">
+          <h1 id="panelTitle">Dashboard</h1>
+          <p id="panelSubtitle">Kelola konten website XI TKJ 1.</p>
+        </div>
+        <div class="admin-header-actions">
+          <span class="admin-whoami" id="adminWhoami"><i class="fa-solid fa-circle-user"></i> Admin</span>
+        </div>
+      </header>
+
+      <main class="admin-main">
+
+        <!-- ===================== PANEL: DASHBOARD ===================== -->
+        <section class="admin-panel is-active" data-panel-content="dashboard">
+          <div class="admin-stats-grid" id="statsGrid">
+            <div class="admin-stat-card">
+              <span class="admin-stat-label">Siswa</span>
+              <span class="admin-stat-value" id="statSiswa"><span class="skeleton-block admin-skeleton-stat"></span></span>
+            </div>
+            <div class="admin-stat-card">
+              <span class="admin-stat-label">Foto Galeri</span>
+              <span class="admin-stat-value" id="statGaleri"><span class="skeleton-block admin-skeleton-stat"></span></span>
+            </div>
+            <div class="admin-stat-card">
+              <span class="admin-stat-label">Berita</span>
+              <span class="admin-stat-value" id="statBerita"><span class="skeleton-block admin-skeleton-stat"></span></span>
+            </div>
+            <div class="admin-stat-card" id="statAdminCard" hidden>
+              <span class="admin-stat-label">Admin</span>
+              <span class="admin-stat-value" id="statAdmin"><span class="skeleton-block admin-skeleton-stat"></span></span>
+            </div>
+          </div>
+
+          <div class="admin-card admin-dashboard-shortcuts">
+            <div class="admin-card-header">
+              <h2>Akses Cepat</h2>
+              <p class="admin-card-sub">Kelola konten website dari sini.</p>
+            </div>
+            <div class="admin-shortcut-row">
+              <button type="button" class="admin-shortcut" data-goto-panel="galeri">
+                <i class="fa-regular fa-image"></i>
+                <span>Upload Galeri</span>
+              </button>
+              <button type="button" class="admin-shortcut" data-goto-panel="berita">
+                <i class="fa-solid fa-newspaper"></i>
+                <span>Tulis Berita</span>
+              </button>
+              <button type="button" class="admin-shortcut" data-goto-panel="sosmed">
+                <i class="fa-solid fa-share-nodes"></i>
+                <span>Foto Sosmed</span>
+              </button>
+              <button type="button" class="admin-shortcut" data-goto-panel="siswa">
+                <i class="fa-solid fa-users"></i>
+                <span>Kelola Siswa</span>
+              </button>
+              <button type="button" class="admin-shortcut" data-goto-panel="admin" id="shortcutAdmin" hidden>
+                <i class="fa-solid fa-user-shield"></i>
+                <span>Manajemen Admin</span>
+              </button>
+              <button type="button" class="admin-shortcut" data-goto-panel="log" id="shortcutLog" hidden>
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span>Log Aktivitas</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== PANEL: GALERI ===================== -->
+        <section class="admin-panel" data-panel-content="galeri" hidden>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2>Upload Galeri</h2>
+              <p class="admin-card-sub">Tambahkan foto baru ke galeri kelas.</p>
+            </div>
+
+            <form id="galleryForm" class="admin-form">
+              <div class="admin-field">
+                <label for="galleryJudul">Judul Foto <span class="admin-optional">(Opsional)</span></label>
+                <input id="galleryJudul" type="text" placeholder="Contoh: Kegiatan Praktikum" maxlength="100">
+              </div>
+
+              <div class="admin-field">
+                <label for="galleryFoto">Foto</label>
+                <div class="admin-upload-area" id="galleryUploadArea">
+                  <input id="galleryFoto" type="file" accept="image/jpeg,image/png,image/webp,image/gif" required>
+                  <div class="admin-upload-placeholder" id="galleryUploadPlaceholder">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <span><strong>Pilih foto</strong> atau seret ke sini</span>
+                    <span class="admin-upload-hint">JPG, PNG, WEBP, atau GIF</span>
+                  </div>
+                  <div class="admin-upload-preview" id="galleryPreviewWrap" hidden>
+                    <img id="galleryPreviewImg" alt="Pratinjau foto">
+                    <div class="admin-upload-preview-info">
+                      <span class="admin-upload-filename" id="galleryFileName"></span>
+                      <span class="admin-upload-filesize" id="galleryFileSize"></span>
+                    </div>
+                    <button type="button" class="admin-upload-remove" id="galleryRemoveFile" aria-label="Hapus pilihan foto">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="admin-btn admin-btn-primary" id="gallerySubmit">
+                <span class="admin-spinner" hidden></span>
+                <span>Upload Foto</span>
+              </button>
+              <div id="galleryStatus" class="admin-status" role="status" aria-live="polite"></div>
+            </form>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2>Foto Terupload</h2>
+              <p class="admin-card-sub">Foto yang ditambahkan melalui panel ini.</p>
+            </div>
+            <div id="galleryExtraList" class="admin-gallery-grid"></div>
+          </div>
+        </section>
+
+        <!-- ===================== PANEL: BERITA ===================== -->
+        <section class="admin-panel" data-panel-content="berita" hidden>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2 id="newsFormTitle">Tambah Berita</h2>
+              <p class="admin-card-sub">Tulis berita atau pengumuman baru. Penulis otomatis akun yang sedang login.</p>
+            </div>
+
+            <form id="newsForm" class="admin-form">
+              <input type="hidden" id="newsId">
+
+              <div class="admin-field">
+                <label for="newsTitle">Judul</label>
+                <input id="newsTitle" type="text" maxlength="150" placeholder="Contoh: Jadwal Ujian Praktik TKJ" required>
+              </div>
+
+              <div class="admin-field">
+                <label for="newsCategory">Kategori</label>
+                <select id="newsCategory" class="admin-select">
+                  <option value="Pengumuman">Pengumuman</option>
+                  <option value="Kegiatan">Kegiatan</option>
+                  <option value="Informasi">Informasi</option>
+                  <option value="Penting">Penting</option>
+                </select>
+              </div>
+
+              <div class="admin-field">
+                <label for="newsExcerpt">Ringkasan <span class="admin-optional">(Opsional)</span></label>
+                <textarea id="newsExcerpt" class="admin-textarea" maxlength="300" rows="2" placeholder="Ringkasan singkat yang tampil di kartu berita"></textarea>
+              </div>
+
+              <div class="admin-field">
+                <label for="newsThumbnail">Thumbnail <span class="admin-optional">(Opsional)</span></label>
+                <div class="admin-upload-area" id="newsUploadArea">
+                  <input id="newsThumbnail" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+                  <div class="admin-upload-placeholder" id="newsUploadPlaceholder">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <span><strong>Pilih gambar</strong> atau seret ke sini</span>
+                    <span class="admin-upload-hint">JPG, PNG, WEBP, atau GIF</span>
+                  </div>
+                  <div class="admin-upload-preview" id="newsPreviewWrap" hidden>
+                    <img id="newsPreviewImg" alt="Pratinjau thumbnail">
+                    <div class="admin-upload-preview-info">
+                      <span class="admin-upload-filename" id="newsFileName"></span>
+                      <span class="admin-upload-filesize" id="newsFileSize"></span>
+                    </div>
+                    <button type="button" class="admin-upload-remove" id="newsRemoveFile" aria-label="Hapus pilihan gambar">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="admin-field">
+                <label for="newsContentEditable">Isi Berita</label>
+                <div class="admin-richtext-toolbar" data-richtext-toolbar="newsContentEditable">
+                  <button type="button" data-cmd="bold" title="Tebal"><i class="fa-solid fa-bold"></i></button>
+                  <button type="button" data-cmd="italic" title="Miring"><i class="fa-solid fa-italic"></i></button>
+                  <button type="button" data-cmd="insertUnorderedList" title="Bullet List"><i class="fa-solid fa-list-ul"></i></button>
+                  <button type="button" data-cmd="insertOrderedList" title="Numbered List"><i class="fa-solid fa-list-ol"></i></button>
+                  <button type="button" data-cmd="createLink" title="Tautan"><i class="fa-solid fa-link"></i></button>
+                  <button type="button" data-cmd="removeFormat" title="Bersihkan Format"><i class="fa-solid fa-eraser"></i></button>
+                </div>
+                <div id="newsContentEditable" class="admin-richtext-editor" contenteditable="true" data-placeholder="Tulis isi berita di sini..."></div>
+              </div>
+
+              <div class="admin-field admin-field-checkbox" id="newsPinField" hidden>
+                <label class="admin-checkbox-label">
+                  <input id="newsPin" type="checkbox">
+                  <span>Pin Berita (tampil paling atas)</span>
+                </label>
+              </div>
+
+              <div class="admin-form-actions">
+                <button type="submit" class="admin-btn admin-btn-secondary" id="newsSaveDraft" data-status="draft">
+                  <span class="admin-spinner" hidden></span>
+                  <span>Simpan Draft</span>
+                </button>
+                <button type="submit" class="admin-btn admin-btn-primary" id="newsPublish" data-status="published">
+                  <span class="admin-spinner" hidden></span>
+                  <span>Publish</span>
+                </button>
+                <button type="button" class="admin-btn admin-btn-secondary" id="newsCancelEdit" hidden>Batal Edit</button>
+              </div>
+              <div id="newsStatus" class="admin-status" role="status" aria-live="polite"></div>
+            </form>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2 id="newsListTitle">Berita Saya</h2>
+              <p class="admin-card-sub" id="newsListSub">Berita yang pernah kamu buat.</p>
+            </div>
+            <div class="news-filter-tabs" id="newsAdminTabs">
+              <button type="button" class="news-filter-tab is-active" data-news-tab="semua">Semua</button>
+              <button type="button" class="news-filter-tab" data-news-tab="published">Published</button>
+              <button type="button" class="news-filter-tab" data-news-tab="draft">Draft</button>
+            </div>
+            <div id="newsAdminList" class="admin-gallery-grid"></div>
+          </div>
+        </section>
+
+        <!-- ===================== PANEL: SOSMED ===================== -->
+        <section class="admin-panel" data-panel-content="sosmed" hidden>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2>Foto Profil Sosial Media</h2>
+              <p class="admin-card-sub">Atur foto yang tampil di kartu kontak Instagram &amp; TikTok kelas di halaman utama. Foto ini murni diupload manual di sini, tidak diambil otomatis dari Instagram/TikTok.</p>
+            </div>
+
+            <div class="admin-social-grid">
+
+              <div class="admin-social-item" data-social-platform="instagram">
+                <div class="admin-social-item-header">
+                  <span class="admin-social-item-icon"><i class="fa-brands fa-instagram"></i></span>
+                  <div>
+                    <span class="admin-social-item-title">Instagram</span>
+                    <span class="admin-social-item-handle">@tkj.1networks_</span>
+                  </div>
+                </div>
+
+                <div class="admin-social-item-preview" id="socialPreview_instagram">
+                  <span class="admin-social-item-fallback" id="socialFallback_instagram">IG</span>
+                  <img id="socialImg_instagram" alt="Foto profil Instagram" hidden>
+                </div>
+
+                <form class="admin-form" data-social-form="instagram">
+                  <div class="admin-field">
+                    <label for="socialFoto_instagram">Ganti Foto</label>
+                    <input id="socialFoto_instagram" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+                  </div>
+                  <div class="admin-social-item-actions">
+                    <button type="submit" class="admin-btn admin-btn-primary" data-social-submit="instagram">
+                      <span class="admin-spinner" hidden></span>
+                      <span>Simpan Foto</span>
+                    </button>
+                    <button type="button" class="admin-btn admin-btn-danger" data-social-delete="instagram">
+                      <i class="fa-solid fa-trash"></i> Hapus Foto
+                    </button>
+                  </div>
+                  <div class="admin-status" data-social-status="instagram" role="status" aria-live="polite"></div>
+                </form>
+              </div>
+
+              <div class="admin-social-item" data-social-platform="tiktok">
+                <div class="admin-social-item-header">
+                  <span class="admin-social-item-icon"><i class="fa-brands fa-tiktok"></i></span>
+                  <div>
+                    <span class="admin-social-item-title">TikTok</span>
+                    <span class="admin-social-item-handle">@xitkj1smk1npol</span>
+                  </div>
+                </div>
+
+                <div class="admin-social-item-preview" id="socialPreview_tiktok">
+                  <span class="admin-social-item-fallback" id="socialFallback_tiktok">TT</span>
+                  <img id="socialImg_tiktok" alt="Foto profil TikTok" hidden>
+                </div>
+
+                <form class="admin-form" data-social-form="tiktok">
+                  <div class="admin-field">
+                    <label for="socialFoto_tiktok">Ganti Foto</label>
+                    <input id="socialFoto_tiktok" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+                  </div>
+                  <div class="admin-social-item-actions">
+                    <button type="submit" class="admin-btn admin-btn-primary" data-social-submit="tiktok">
+                      <span class="admin-spinner" hidden></span>
+                      <span>Simpan Foto</span>
+                    </button>
+                    <button type="button" class="admin-btn admin-btn-danger" data-social-delete="tiktok">
+                      <i class="fa-solid fa-trash"></i> Hapus Foto
+                    </button>
+                  </div>
+                  <div class="admin-status" data-social-status="tiktok" role="status" aria-live="polite"></div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== PANEL: SISWA ===================== -->
+        <section class="admin-panel" data-panel-content="siswa" hidden>
+          <div class="admin-card">
+            <div class="admin-card-header admin-card-header-row">
+              <div>
+                <h2>Siswa</h2>
+                <p class="admin-card-sub">Cari dan ubah data atau pasfoto siswa.</p>
+              </div>
+              <span class="admin-count-badge" id="siswaCountBadge">—</span>
+            </div>
+
+            <div class="admin-field admin-search-field">
+              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+              <input id="siswaSearch" type="search" placeholder="Cari nama siswa...">
+            </div>
+
+            <!-- Desktop table -->
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Foto</th>
+                    <th>Nama</th>
+                    <th>NIS</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Instagram</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="siswaTableBody"></tbody>
+              </table>
+            </div>
+
+            <!-- Mobile cards -->
+            <div class="admin-siswa-cardlist" id="siswaCardList"></div>
+          </div>
+        </section>
+
+        <!-- ===================== PANEL: ADMIN ===================== -->
+        <section class="admin-panel" data-panel-content="admin" hidden>
+          <div class="admin-card">
+            <div class="admin-card-header admin-card-header-row">
+              <div>
+                <h2>Manajemen Admin</h2>
+                <p class="admin-card-sub">Kelola akun yang memiliki akses ke panel admin.</p>
+              </div>
+              <button type="button" class="admin-btn admin-btn-primary" id="openCreateAdminBtn">
+                <i class="fa-solid fa-plus"></i> Tambah Admin
+              </button>
+            </div>
+
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="adminsTableBody"></tbody>
+                <!-- Tombol "Edit" & "Hapus" dirender lewat JS (lihat renderAdmins di assets/js/admin.js) -->
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== PANEL: LOG AKTIVITAS ===================== -->
+        <section class="admin-panel" data-panel-content="log" hidden>
+          <div class="admin-card">
+            <div class="admin-card-header admin-card-header-row">
+              <div>
+                <h2>Log Aktivitas</h2>
+                <p class="admin-card-sub">Riwayat kegiatan di panel admin (login, logout, upload, ubah data). Hanya super_admin yang bisa melihat ini.</p>
+              </div>
+              <button type="button" class="admin-btn admin-btn-secondary" id="refreshLogBtn">
+                <i class="fa-solid fa-rotate-right"></i> Muat Ulang
+              </button>
+            </div>
+
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Waktu</th>
+                    <th>Akun</th>
+                    <th>Aktivitas</th>
+                    <th>Detail</th>
+                  </tr>
+                </thead>
+                <tbody id="activityLogTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal: edit data siswa -->
+  <div id="siswaDataModal" class="admin-modal" aria-hidden="true">
+    <div class="admin-modal-backdrop" data-close-modal></div>
+    <div class="admin-modal-content">
+      <button type="button" class="admin-modal-close" data-close-modal aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+      <h3 id="siswaDataModalTitle">Ubah Data Siswa</h3>
+      <form id="siswaDataForm" class="admin-form">
+        <input type="hidden" id="siswaDataAbsen">
+        <div class="admin-field">
+          <label for="siswaDataNama">Nama Lengkap</label>
+          <input id="siswaDataNama" type="text" maxlength="100" required>
+        </div>
+        <div class="admin-field">
+          <label for="siswaDataNis">NIS</label>
+          <input id="siswaDataNis" type="text" maxlength="40">
+        </div>
+        <div class="admin-field">
+          <label for="siswaDataJk">Jenis Kelamin</label>
+          <select id="siswaDataJk" class="admin-select" required>
+            <option value="L">Laki-laki</option>
+            <option value="P">Perempuan</option>
+          </select>
+        </div>
+        <div class="admin-field">
+          <label for="siswaDataIg">Instagram <span class="admin-optional">(tanpa @)</span></label>
+          <input id="siswaDataIg" type="text" maxlength="60">
+        </div>
+        <div class="admin-modal-actions">
+          <button type="button" class="admin-btn admin-btn-secondary" data-close-modal>Batal</button>
+          <button type="submit" class="admin-btn admin-btn-primary" id="siswaDataSubmit">
+            <span class="admin-spinner" hidden></span>
+            <span>Simpan Perubahan</span>
+          </button>
+        </div>
+        <div id="siswaDataStatus" class="admin-status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: ganti foto siswa -->
+  <div id="siswaFotoModal" class="admin-modal" aria-hidden="true">
+    <div class="admin-modal-backdrop" data-close-modal></div>
+    <div class="admin-modal-content">
+      <button type="button" class="admin-modal-close" data-close-modal aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+      <h3 id="siswaFotoModalTitle">Ubah Foto Siswa</h3>
+      <form id="siswaFotoForm" class="admin-form">
+        <input type="hidden" id="siswaFotoAbsen">
+
+        <div class="admin-field">
+          <label>Foto Saat Ini</label>
+          <div class="admin-current-photo">
+            <img id="siswaFotoCurrentImg" alt="Foto saat ini" onerror="this.src='assets/img/logo/default-avatar.png'">
+          </div>
+        </div>
+
+        <div class="admin-field">
+          <label for="siswaFotoInput">Ganti Foto</label>
+          <div class="admin-upload-area" id="siswaFotoUploadArea">
+            <input id="siswaFotoInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif" required>
+            <div class="admin-upload-placeholder" id="siswaFotoUploadPlaceholder">
+              <i class="fa-solid fa-camera"></i>
+              <span><strong>Pilih foto baru</strong></span>
+            </div>
+            <div class="admin-upload-preview" id="siswaFotoPreviewWrap" hidden>
+              <img id="siswaFotoPreviewImg" alt="Pratinjau foto baru">
+              <div class="admin-upload-preview-info">
+                <span class="admin-upload-filename" id="siswaFotoFileName"></span>
+                <span class="admin-upload-filesize" id="siswaFotoFileSize"></span>
+              </div>
+              <button type="button" class="admin-upload-remove" id="siswaFotoRemoveFile" aria-label="Hapus pilihan foto">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-modal-actions">
+          <button type="button" class="admin-btn admin-btn-secondary" data-close-modal>Batal</button>
+          <button type="submit" class="admin-btn admin-btn-primary" id="siswaFotoSubmit">
+            <span class="admin-spinner" hidden></span>
+            <span>Simpan Foto</span>
+          </button>
+        </div>
+        <div id="siswaFotoStatus" class="admin-status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: ubah background Detail Siswa (khusus tampilan halaman Detail Siswa siswa terkait, tidak memengaruhi halaman lain) -->
+  <div id="siswaBackgroundModal" class="admin-modal" aria-hidden="true">
+    <div class="admin-modal-backdrop" data-close-modal></div>
+    <div class="admin-modal-content">
+      <button type="button" class="admin-modal-close" data-close-modal aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+      <h3 id="siswaBackgroundModalTitle">Background Detail Siswa</h3>
+      <p class="admin-card-sub">Background ini hanya tampil di halaman Detail Siswa yang dipilih, tidak memengaruhi halaman lain.</p>
+      <form id="siswaBackgroundForm" class="admin-form">
+        <input type="hidden" id="siswaBackgroundAbsen">
+
+        <div class="admin-field">
+          <label>Background Saat Ini</label>
+          <div class="admin-current-photo">
+            <img id="siswaBackgroundCurrentImg" alt="Background saat ini" hidden>
+            <span id="siswaBackgroundCurrentDefault" class="admin-table-muted">Default (belum ada background khusus)</span>
+          </div>
+        </div>
+
+        <div class="admin-field">
+          <label for="siswaBackgroundInput">Ganti Background</label>
+          <div class="admin-upload-area" id="siswaBackgroundUploadArea">
+            <input id="siswaBackgroundInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+            <div class="admin-upload-placeholder" id="siswaBackgroundUploadPlaceholder">
+              <i class="fa-solid fa-image"></i>
+              <span><strong>Pilih background baru</strong></span>
+            </div>
+            <div class="admin-upload-preview" id="siswaBackgroundPreviewWrap" hidden>
+              <img id="siswaBackgroundPreviewImg" alt="Pratinjau background baru">
+              <div class="admin-upload-preview-info">
+                <span class="admin-upload-filename" id="siswaBackgroundFileName"></span>
+                <span class="admin-upload-filesize" id="siswaBackgroundFileSize"></span>
+              </div>
+              <button type="button" class="admin-upload-remove" id="siswaBackgroundRemoveFile" aria-label="Hapus pilihan background">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-modal-actions">
+          <button type="button" class="admin-btn admin-btn-secondary" id="siswaBackgroundResetBtn">Reset ke Default</button>
+          <button type="submit" class="admin-btn admin-btn-primary" id="siswaBackgroundSubmit">
+            <span class="admin-spinner" hidden></span>
+            <span>Simpan Background</span>
+          </button>
+        </div>
+        <div id="siswaBackgroundStatus" class="admin-status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: tambah admin -->
+  <div id="createAdminModal" class="admin-modal" aria-hidden="true">
+    <div class="admin-modal-backdrop" data-close-modal></div>
+    <div class="admin-modal-content">
+      <button type="button" class="admin-modal-close" data-close-modal aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+      <h3>Tambah Admin</h3>
+      <form id="createAdminForm" class="admin-form">
+        <div class="admin-field">
+          <label for="newAdminUsername">Username</label>
+          <input id="newAdminUsername" type="text" placeholder="Contoh: budi" autocomplete="off" required>
+        </div>
+        <div class="admin-field">
+          <label for="newAdminPassword">Password</label>
+          <div class="admin-password-wrap">
+            <input id="newAdminPassword" type="password" placeholder="Min. 4 karakter" autocomplete="new-password" required>
+            <button type="button" class="admin-password-toggle" id="newAdminPasswordToggle" aria-label="Tampilkan password">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        <div class="admin-field">
+          <label for="newAdminRole">Role</label>
+          <select id="newAdminRole" class="admin-select">
+            <option value="admin">Admin (fitur terbatas — tidak bisa kelola admin/log, tidak bisa hapus foto galeri)</option>
+            <option value="siswa">Siswa (hanya bisa mengedit data & foto siswa yang dipilih di bawah)</option>
+          </select>
+        </div>
+        <div class="admin-field" id="assignedSiswaWrap" hidden>
+          <label for="assignedSiswaSearch">Siswa yang boleh diedit akun ini</label>
+          <input id="assignedSiswaSearch" type="text" placeholder="Cari nama siswa...">
+          <div id="assignedSiswaList" class="admin-checkbox-list"></div>
+        </div>
+        <div class="admin-modal-actions">
+          <button type="button" class="admin-btn admin-btn-secondary" data-close-modal>Batal</button>
+          <button type="submit" class="admin-btn admin-btn-primary" id="createAdminSubmit">
+            <span class="admin-spinner" hidden></span>
+            <span>Buat Akun</span>
+          </button>
+        </div>
+        <div id="createAdminStatus" class="admin-status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: edit admin (username/password) -->
+  <div id="editAdminModal" class="admin-modal" aria-hidden="true">
+    <div class="admin-modal-backdrop" data-close-modal></div>
+    <div class="admin-modal-content">
+      <button type="button" class="admin-modal-close" data-close-modal aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+      <h3 id="editAdminTitle">Edit Akun Admin</h3>
+      <form id="editAdminForm" class="admin-form">
+        <input type="hidden" id="editAdminOriginalUsername">
+        <p id="editAdminSuperAdminHint" class="admin-field-hint" hidden>Akun super_admin: username tidak bisa diubah, hanya password.</p>
+        <div class="admin-field">
+          <label for="editAdminUsername">Username</label>
+          <input id="editAdminUsername" type="text" placeholder="Contoh: budi" autocomplete="off" required>
+        </div>
+        <div class="admin-field">
+          <label for="editAdminPassword">Password baru</label>
+          <div class="admin-password-wrap">
+            <input id="editAdminPassword" type="password" placeholder="Kosongkan kalau tidak diganti" autocomplete="new-password">
+            <button type="button" class="admin-password-toggle" id="editAdminPasswordToggle" aria-label="Tampilkan password">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+          <p class="admin-field-hint">Biarkan kosong kalau password tidak ingin diubah.</p>
+        </div>
+        <div class="admin-modal-actions">
+          <button type="button" class="admin-btn admin-btn-secondary" data-close-modal>Batal</button>
+          <button type="submit" class="admin-btn admin-btn-primary" id="editAdminSubmit">
+            <span class="admin-spinner" hidden></span>
+            <span>Simpan Perubahan</span>
+          </button>
+        </div>
+        <div id="editAdminStatus" class="admin-status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: konfirmasi generik (hapus foto, hapus admin, logout) -->
+  <div id="confirmModal" class="admin-modal" aria-hidden="true">
+    <div class="admin-modal-backdrop" data-confirm-cancel></div>
+    <div class="admin-modal-content admin-modal-confirm">
+      <h3 id="confirmModalTitle">Konfirmasi</h3>
+      <p id="confirmModalBody" class="admin-confirm-body"></p>
+      <div class="admin-modal-actions">
+        <button type="button" class="admin-btn admin-btn-secondary" id="confirmModalCancel">Batal</button>
+        <button type="button" class="admin-btn admin-btn-danger" id="confirmModalOk">Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toastContainer" class="admin-toast-container" aria-live="polite"></div>
+
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

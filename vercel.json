@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/berita", "destination": "/berita.html" },
+    { "source": "/berita/:slug", "destination": "/berita-detail.html" }
+  ]
+}
