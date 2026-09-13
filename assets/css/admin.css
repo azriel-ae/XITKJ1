@@ -1135,15 +1135,17 @@
 .admin-richtext-editor:empty::before { content: attr(data-placeholder); color: var(--color-text-muted); }
 .admin-richtext-editor ul, .admin-richtext-editor ol { padding-left: 22px; margin: 8px 0; }
 
-.admin-news-item { display: flex; gap: 14px; align-items: center; padding: 14px; border: 1px solid var(--color-light-gray); border-radius: var(--admin-radius-card); background: #fff; }
-.admin-news-item + .admin-news-item { margin-top: 10px; }
-.admin-news-item-thumb { flex: 0 0 72px; width: 72px; height: 72px; border-radius: var(--admin-radius-input); overflow: hidden; background: var(--color-offwhite); display: grid; place-items: center; color: var(--color-muted-gray); }
+.admin-news-list { display: flex; flex-direction: column; gap: 10px; }
+.admin-news-list > .empty-state { width: 100%; }
+
+.admin-news-item { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; padding: 14px; border: 1px solid var(--color-light-gray); border-radius: var(--admin-radius-card); background: #fff; }
+.admin-news-item-thumb { flex: 0 0 72px; width: 72px; height: 72px; border-radius: var(--admin-radius-input); overflow: hidden; background: var(--color-offwhite); display: grid; place-items: center; color: var(--color-muted-gray); font-size: 1.4rem; }
 .admin-news-item-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.admin-news-item-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.admin-news-item-body { flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
 .admin-news-item-badges { display: flex; flex-wrap: wrap; gap: 6px; }
 .admin-news-item-title { font-weight: 700; color: var(--color-charcoal); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .admin-news-item-meta { font-size: 0.8rem; color: var(--color-text-muted); }
-.admin-news-item-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.admin-news-item-actions { display: flex; gap: 8px; flex-shrink: 0; margin-left: auto; }
 
 .admin-badge-published { background: var(--color-primary-soft-2); color: var(--color-lime-dark); }
 .admin-badge-draft { background: #f1f1ef; color: var(--color-text-muted); }

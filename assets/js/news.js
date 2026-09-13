@@ -31,12 +31,6 @@ function formatNewsDate(iso) {
   }
 }
 
-function newsRoleLabel(role) {
-  if (role === "super_admin") return "Super Admin";
-  if (role === "admin") return "Admin";
-  return "Siswa";
-}
-
 function newsCardMedia(item) {
   if (item.thumbnail) {
     return `<div class="news-card-media">
@@ -61,7 +55,6 @@ function renderNewsCard(item) {
         <span class="news-card-date">${formatNewsDate(item.publishedAt || item.createdAt)}</span>
         ${item.excerpt ? `<p class="news-card-excerpt">${escapeHtmlNews(item.excerpt)}</p>` : ""}
         <div class="news-card-foot">
-          <span class="news-card-author">Oleh <strong>${escapeHtmlNews(item.authorName)}</strong> · ${newsRoleLabel(item.authorRole)}</span>
           <span class="news-card-readmore">Baca <i class="fa-solid fa-arrow-right"></i></span>
         </div>
       </div>
@@ -185,7 +178,6 @@ async function initNewsDetail() {
         <h1 class="news-detail-title">${escapeHtmlNews(item.title)}</h1>
         <div class="news-detail-meta">
           <span><i class="fa-regular fa-calendar"></i> ${formatNewsDate(item.publishedAt || item.createdAt)}</span>
-          <span><i class="fa-regular fa-user"></i> Ditulis oleh <strong>${escapeHtmlNews(item.authorName)}</strong> · ${newsRoleLabel(item.authorRole)}</span>
         </div>
         <div class="news-detail-content">${item.content}</div>
         ${related.length ? `

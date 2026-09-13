@@ -85,9 +85,6 @@
         <button type="button" class="admin-nav-item" data-panel="berita">
           <i class="fa-solid fa-newspaper"></i> <span>Berita</span>
         </button>
-        <button type="button" class="admin-nav-item" data-panel="sosmed">
-          <i class="fa-solid fa-share-nodes"></i> <span>Sosmed</span>
-        </button>
         <button type="button" class="admin-nav-item" data-panel="siswa">
           <i class="fa-solid fa-users"></i> <span>Siswa</span>
         </button>
@@ -160,7 +157,7 @@
                 <i class="fa-solid fa-newspaper"></i>
                 <span>Tulis Berita</span>
               </button>
-              <button type="button" class="admin-shortcut" data-goto-panel="sosmed">
+              <button type="button" class="admin-shortcut" data-goto-panel="galeri">
                 <i class="fa-solid fa-share-nodes"></i>
                 <span>Foto Sosmed</span>
               </button>
@@ -231,6 +228,81 @@
               <p class="admin-card-sub">Foto yang ditambahkan melalui panel ini.</p>
             </div>
             <div id="galleryExtraList" class="admin-gallery-grid"></div>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h2>Foto Profil Sosial Media</h2>
+              <p class="admin-card-sub">Atur foto yang tampil di kartu kontak Instagram &amp; TikTok kelas di halaman utama. Foto ini murni diupload manual di sini, tidak diambil otomatis dari Instagram/TikTok.</p>
+            </div>
+
+            <div class="admin-social-grid">
+
+              <div class="admin-social-item" data-social-platform="instagram">
+                <div class="admin-social-item-header">
+                  <span class="admin-social-item-icon"><i class="fa-brands fa-instagram"></i></span>
+                  <div>
+                    <span class="admin-social-item-title">Instagram</span>
+                    <span class="admin-social-item-handle">@tkj.1networks_</span>
+                  </div>
+                </div>
+
+                <div class="admin-social-item-preview" id="socialPreview_instagram">
+                  <span class="admin-social-item-fallback" id="socialFallback_instagram">IG</span>
+                  <img id="socialImg_instagram" alt="Foto profil Instagram" hidden>
+                </div>
+
+                <form class="admin-form" data-social-form="instagram">
+                  <div class="admin-field">
+                    <label for="socialFoto_instagram">Ganti Foto</label>
+                    <input id="socialFoto_instagram" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+                  </div>
+                  <div class="admin-social-item-actions">
+                    <button type="submit" class="admin-btn admin-btn-primary" data-social-submit="instagram">
+                      <span class="admin-spinner" hidden></span>
+                      <span>Simpan Foto</span>
+                    </button>
+                    <button type="button" class="admin-btn admin-btn-danger" data-social-delete="instagram">
+                      <i class="fa-solid fa-trash"></i> Hapus Foto
+                    </button>
+                  </div>
+                  <div class="admin-status" data-social-status="instagram" role="status" aria-live="polite"></div>
+                </form>
+              </div>
+
+              <div class="admin-social-item" data-social-platform="tiktok">
+                <div class="admin-social-item-header">
+                  <span class="admin-social-item-icon"><i class="fa-brands fa-tiktok"></i></span>
+                  <div>
+                    <span class="admin-social-item-title">TikTok</span>
+                    <span class="admin-social-item-handle">@xitkj1smk1npol</span>
+                  </div>
+                </div>
+
+                <div class="admin-social-item-preview" id="socialPreview_tiktok">
+                  <span class="admin-social-item-fallback" id="socialFallback_tiktok">TT</span>
+                  <img id="socialImg_tiktok" alt="Foto profil TikTok" hidden>
+                </div>
+
+                <form class="admin-form" data-social-form="tiktok">
+                  <div class="admin-field">
+                    <label for="socialFoto_tiktok">Ganti Foto</label>
+                    <input id="socialFoto_tiktok" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+                  </div>
+                  <div class="admin-social-item-actions">
+                    <button type="submit" class="admin-btn admin-btn-primary" data-social-submit="tiktok">
+                      <span class="admin-spinner" hidden></span>
+                      <span>Simpan Foto</span>
+                    </button>
+                    <button type="button" class="admin-btn admin-btn-danger" data-social-delete="tiktok">
+                      <i class="fa-solid fa-trash"></i> Hapus Foto
+                    </button>
+                  </div>
+                  <div class="admin-status" data-social-status="tiktok" role="status" aria-live="polite"></div>
+                </form>
+              </div>
+
+            </div>
           </div>
         </section>
 
@@ -333,86 +405,7 @@
               <button type="button" class="news-filter-tab" data-news-tab="published">Published</button>
               <button type="button" class="news-filter-tab" data-news-tab="draft">Draft</button>
             </div>
-            <div id="newsAdminList" class="admin-gallery-grid"></div>
-          </div>
-        </section>
-
-        <!-- ===================== PANEL: SOSMED ===================== -->
-        <section class="admin-panel" data-panel-content="sosmed" hidden>
-
-          <div class="admin-card">
-            <div class="admin-card-header">
-              <h2>Foto Profil Sosial Media</h2>
-              <p class="admin-card-sub">Atur foto yang tampil di kartu kontak Instagram &amp; TikTok kelas di halaman utama. Foto ini murni diupload manual di sini, tidak diambil otomatis dari Instagram/TikTok.</p>
-            </div>
-
-            <div class="admin-social-grid">
-
-              <div class="admin-social-item" data-social-platform="instagram">
-                <div class="admin-social-item-header">
-                  <span class="admin-social-item-icon"><i class="fa-brands fa-instagram"></i></span>
-                  <div>
-                    <span class="admin-social-item-title">Instagram</span>
-                    <span class="admin-social-item-handle">@tkj.1networks_</span>
-                  </div>
-                </div>
-
-                <div class="admin-social-item-preview" id="socialPreview_instagram">
-                  <span class="admin-social-item-fallback" id="socialFallback_instagram">IG</span>
-                  <img id="socialImg_instagram" alt="Foto profil Instagram" hidden>
-                </div>
-
-                <form class="admin-form" data-social-form="instagram">
-                  <div class="admin-field">
-                    <label for="socialFoto_instagram">Ganti Foto</label>
-                    <input id="socialFoto_instagram" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
-                  </div>
-                  <div class="admin-social-item-actions">
-                    <button type="submit" class="admin-btn admin-btn-primary" data-social-submit="instagram">
-                      <span class="admin-spinner" hidden></span>
-                      <span>Simpan Foto</span>
-                    </button>
-                    <button type="button" class="admin-btn admin-btn-danger" data-social-delete="instagram">
-                      <i class="fa-solid fa-trash"></i> Hapus Foto
-                    </button>
-                  </div>
-                  <div class="admin-status" data-social-status="instagram" role="status" aria-live="polite"></div>
-                </form>
-              </div>
-
-              <div class="admin-social-item" data-social-platform="tiktok">
-                <div class="admin-social-item-header">
-                  <span class="admin-social-item-icon"><i class="fa-brands fa-tiktok"></i></span>
-                  <div>
-                    <span class="admin-social-item-title">TikTok</span>
-                    <span class="admin-social-item-handle">@xitkj1smk1npol</span>
-                  </div>
-                </div>
-
-                <div class="admin-social-item-preview" id="socialPreview_tiktok">
-                  <span class="admin-social-item-fallback" id="socialFallback_tiktok">TT</span>
-                  <img id="socialImg_tiktok" alt="Foto profil TikTok" hidden>
-                </div>
-
-                <form class="admin-form" data-social-form="tiktok">
-                  <div class="admin-field">
-                    <label for="socialFoto_tiktok">Ganti Foto</label>
-                    <input id="socialFoto_tiktok" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
-                  </div>
-                  <div class="admin-social-item-actions">
-                    <button type="submit" class="admin-btn admin-btn-primary" data-social-submit="tiktok">
-                      <span class="admin-spinner" hidden></span>
-                      <span>Simpan Foto</span>
-                    </button>
-                    <button type="button" class="admin-btn admin-btn-danger" data-social-delete="tiktok">
-                      <i class="fa-solid fa-trash"></i> Hapus Foto
-                    </button>
-                  </div>
-                  <div class="admin-status" data-social-status="tiktok" role="status" aria-live="polite"></div>
-                </form>
-              </div>
-
-            </div>
+            <div id="newsAdminList" class="admin-news-list"></div>
           </div>
         </section>
 

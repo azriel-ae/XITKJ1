@@ -58,7 +58,7 @@
 .news-card-date { font-size: .8rem; color: var(--color-text-muted); }
 .news-card-excerpt { margin: 0; color: var(--color-text-muted); font-size: .92rem; line-height: 1.55; flex: 1; }
 
-.news-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--color-border); }
+.news-card-foot { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--color-border); }
 .news-card-author { font-size: .78rem; color: var(--color-text-muted); }
 .news-card-author strong { color: var(--color-text); font-weight: 600; }
 .news-card-readmore { font-size: .84rem; font-weight: 700; color: var(--color-lime-dark); white-space: nowrap; }

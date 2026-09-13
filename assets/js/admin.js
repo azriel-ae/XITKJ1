@@ -146,9 +146,8 @@
 
   const panelMeta = {
     dashboard: { title: "Dashboard", subtitle: "Kelola konten website XI TKJ 1." },
-    galeri: { title: "Galeri", subtitle: "Tambahkan dan kelola foto galeri kelas." },
+    galeri: { title: "Galeri", subtitle: "Tambahkan foto galeri dan atur foto profil Instagram & TikTok kelas." },
     berita: { title: "Berita", subtitle: "Tulis dan kelola berita & pengumuman kelas." },
-    sosmed: { title: "Sosmed", subtitle: "Atur foto profil Instagram & TikTok kelas yang tampil di halaman utama." },
     siswa: { title: "Siswa", subtitle: "Cari dan ubah data atau pasfoto siswa." },
     admin: { title: "Manajemen Admin", subtitle: "Kelola akun yang memiliki akses ke panel admin." },
     log: { title: "Log Aktivitas", subtitle: "Riwayat kegiatan di panel admin (khusus super_admin)." }
@@ -1291,7 +1290,13 @@
     const manager = isNewsManager();
 
     container.innerHTML = list.map(item => {
-      const canEdit = manager || item.authorId === currentUsername;
+      // Karena server (lib/news.js) sudah membatasi daftar yang dikirim
+      // ke akun non-manager (siswa) hanya berisi berita miliknya sendiri,
+      // dan manager (admin/super_admin) memang boleh mengedit semua
+      // berita, maka setiap item yang tampil di sini SELALU boleh
+      // diedit/dihapus oleh yang sedang login — penegakan sebenarnya
+      // tetap dilakukan di server, ini cuma soal tombol mana yang tampil.
+      const canEdit = true;
       return `
       <div class="admin-news-item" data-news-id="${item.id}">
         <div class="admin-news-item-thumb">
@@ -1304,7 +1309,7 @@
             <span class="admin-badge">${escapeHtml(item.category)}</span>
           </div>
           <span class="admin-news-item-title">${escapeHtml(item.title)}</span>
-          <span class="admin-news-item-meta">${escapeHtml(item.authorName)} · ${newsRoleLabel(item.authorRole)}</span>
+          ${item.authorName ? `<span class="admin-news-item-meta">Oleh ${escapeHtml(item.authorName)} · ${newsRoleLabel(item.authorRole)}</span>` : ""}
         </div>
         <div class="admin-news-item-actions">
           ${manager ? `<button type="button" class="admin-btn admin-btn-ghost" data-news-pin="${item.id}" aria-label="Pin/unpin berita"><i class="fa-solid fa-thumbtack"></i></button>` : ""}
@@ -1436,11 +1441,12 @@
   function openNewsForEdit(id) {
     const item = allNewsAdmin.find(n => n.id === id);
     if (!item) return;
-    const manager = isNewsManager();
-    if (!manager && item.authorId !== currentUsername) {
-      showToast("Anda tidak memiliki izin untuk mengedit berita ini.", "error");
-      return;
-    }
+    // Tidak perlu cek kepemilikan di sini: daftar allNewsAdmin untuk akun
+    // non-manager (siswa) memang sudah dibatasi server hanya berisi
+    // berita miliknya sendiri (lihat lib/news.js#listNewsForUser), dan
+    // manager (admin/super_admin) memang boleh mengedit berita siapa
+    // pun. Penegakan yang sesungguhnya tetap dilakukan di server saat
+    // request PUT dikirim.
     document.getElementById("newsId").value = item.id;
     document.getElementById("newsTitle").value = item.title;
     document.getElementById("newsCategory").value = item.category;
