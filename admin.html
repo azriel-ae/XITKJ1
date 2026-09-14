@@ -83,7 +83,7 @@
           <i class="fa-regular fa-image"></i> <span>Galeri</span>
         </button>
         <button type="button" class="admin-nav-item" data-panel="berita">
-          <i class="fa-solid fa-newspaper"></i> <span>Berita</span>
+          <i class="fa-solid fa-newspaper"></i> <span>Pengumuman</span>
         </button>
         <button type="button" class="admin-nav-item" data-panel="siswa">
           <i class="fa-solid fa-users"></i> <span>Siswa</span>
@@ -134,7 +134,7 @@
               <span class="admin-stat-value" id="statGaleri"><span class="skeleton-block admin-skeleton-stat"></span></span>
             </div>
             <div class="admin-stat-card">
-              <span class="admin-stat-label">Berita</span>
+              <span class="admin-stat-label">Pengumuman</span>
               <span class="admin-stat-value" id="statBerita"><span class="skeleton-block admin-skeleton-stat"></span></span>
             </div>
             <div class="admin-stat-card" id="statAdminCard" hidden>
@@ -155,7 +155,7 @@
               </button>
               <button type="button" class="admin-shortcut" data-goto-panel="berita">
                 <i class="fa-solid fa-newspaper"></i>
-                <span>Tulis Berita</span>
+                <span>Tulis Pengumuman</span>
               </button>
               <button type="button" class="admin-shortcut" data-goto-panel="galeri">
                 <i class="fa-solid fa-share-nodes"></i>
@@ -311,8 +311,8 @@
 
           <div class="admin-card">
             <div class="admin-card-header">
-              <h2 id="newsFormTitle">Tambah Berita</h2>
-              <p class="admin-card-sub">Tulis berita atau pengumuman baru. Penulis otomatis akun yang sedang login.</p>
+              <h2 id="newsFormTitle">Tambah Pengumuman</h2>
+              <p class="admin-card-sub">Tulis pengumuman baru untuk kelas. Penulis otomatis akun yang sedang login.</p>
             </div>
 
             <form id="newsForm" class="admin-form">
@@ -376,7 +376,7 @@
               <div class="admin-field admin-field-checkbox" id="newsPinField" hidden>
                 <label class="admin-checkbox-label">
                   <input id="newsPin" type="checkbox">
-                  <span>Pin Berita (tampil paling atas)</span>
+                  <span>Pin Pengumuman (tampil paling atas)</span>
                 </label>
               </div>
 
@@ -397,8 +397,8 @@
 
           <div class="admin-card">
             <div class="admin-card-header">
-              <h2 id="newsListTitle">Berita Saya</h2>
-              <p class="admin-card-sub" id="newsListSub">Berita yang pernah kamu buat.</p>
+              <h2 id="newsListTitle">Pengumuman Saya</h2>
+              <p class="admin-card-sub" id="newsListSub">Pengumuman yang pernah kamu buat.</p>
             </div>
             <div class="news-filter-tabs" id="newsAdminTabs">
               <button type="button" class="news-filter-tab is-active" data-news-tab="semua">Semua</button>

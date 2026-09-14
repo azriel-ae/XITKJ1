@@ -102,7 +102,7 @@ async function initNewsList() {
   let activeCategory = "Semua";
 
   async function load() {
-    container.innerHTML = `<div class="empty-state">Memuat berita...</div>`;
+    container.innerHTML = `<div class="empty-state">Memuat pengumuman...</div>`;
     try {
       const url = activeCategory === "Semua"
         ? "/api/gallery?resource=news"
@@ -127,14 +127,14 @@ async function initNewsList() {
       }
 
       if (!items.length) {
-        container.innerHTML = `<div class="empty-state">Belum ada berita untuk kategori ini.</div>`;
+        container.innerHTML = `<div class="empty-state">Belum ada pengumuman untuk kategori ini.</div>`;
         return;
       }
 
       container.innerHTML = `<div class="news-list-grid">${items.map(renderNewsCard).join("")}</div>`;
     } catch (error) {
-      console.error("Gagal memuat berita:", error);
-      container.innerHTML = `<div class="empty-state is-error">Gagal memuat berita. Coba muat ulang halaman.</div>`;
+      console.error("Gagal memuat pengumuman:", error);
+      container.innerHTML = `<div class="empty-state is-error">Gagal memuat pengumuman. Coba muat ulang halaman.</div>`;
     }
   }
 
@@ -154,14 +154,14 @@ async function initNewsDetail() {
 
   const slug = newsSlugFromPath();
   if (!slug) {
-    container.innerHTML = `<div class="empty-state">Berita tidak ditemukan.</div>`;
+    container.innerHTML = `<div class="empty-state">Pengumuman tidak ditemukan.</div>`;
     return;
   }
 
   try {
     const res = await fetch(`/api/gallery?resource=news&slug=${encodeURIComponent(slug)}`);
     if (res.status === 404) {
-      container.innerHTML = `<div class="empty-state">Berita tidak ditemukan atau belum dipublikasikan.</div>`;
+      container.innerHTML = `<div class="empty-state">Pengumuman tidak ditemukan atau belum dipublikasikan.</div>`;
       return;
     }
     const data = await res.json();
@@ -172,7 +172,7 @@ async function initNewsDetail() {
 
     container.innerHTML = `
       <div class="news-detail-wrap">
-        <a class="news-back-link" href="/berita"><i class="fa-solid fa-arrow-left"></i> Kembali ke Berita</a>
+        <a class="news-back-link" href="/berita"><i class="fa-solid fa-arrow-left"></i> Kembali ke Pengumuman</a>
         ${item.thumbnail ? `<div class="news-detail-thumb"><img src="${escapeHtmlNews(item.thumbnail)}" alt="${escapeHtmlNews(item.title)}"></div>` : ""}
         <span class="news-category-badge">${escapeHtmlNews(item.category)}</span>
         <h1 class="news-detail-title">${escapeHtmlNews(item.title)}</h1>
@@ -182,13 +182,13 @@ async function initNewsDetail() {
         <div class="news-detail-content">${item.content}</div>
         ${related.length ? `
           <div class="news-related">
-            <h2>Berita Terkait</h2>
+            <h2>Pengumuman Terkait</h2>
             <div class="news-list-grid">${related.map(renderNewsCard).join("")}</div>
           </div>` : ""}
       </div>`;
   } catch (error) {
-    console.error("Gagal memuat detail berita:", error);
-    container.innerHTML = `<div class="empty-state is-error">Gagal memuat berita. Coba muat ulang halaman.</div>`;
+    console.error("Gagal memuat detail pengumuman:", error);
+    container.innerHTML = `<div class="empty-state is-error">Gagal memuat pengumuman. Coba muat ulang halaman.</div>`;
   }
 }
 

@@ -147,7 +147,7 @@
   const panelMeta = {
     dashboard: { title: "Dashboard", subtitle: "Kelola konten website XI TKJ 1." },
     galeri: { title: "Galeri", subtitle: "Tambahkan foto galeri dan atur foto profil Instagram & TikTok kelas." },
-    berita: { title: "Berita", subtitle: "Tulis dan kelola berita & pengumuman kelas." },
+    berita: { title: "Pengumuman", subtitle: "Tulis dan kelola pengumuman kelas." },
     siswa: { title: "Siswa", subtitle: "Cari dan ubah data atau pasfoto siswa." },
     admin: { title: "Manajemen Admin", subtitle: "Kelola akun yang memiliki akses ke panel admin." },
     log: { title: "Log Aktivitas", subtitle: "Riwayat kegiatan di panel admin (khusus super_admin)." }
@@ -1246,10 +1246,10 @@
     const manager = isNewsManager();
     const listTitle = document.getElementById("newsListTitle");
     const listSub = document.getElementById("newsListSub");
-    if (listTitle) listTitle.textContent = manager ? "Semua Berita" : "Berita Saya";
+    if (listTitle) listTitle.textContent = manager ? "Semua Pengumuman" : "Pengumuman Saya";
     if (listSub) listSub.textContent = manager
-      ? "Kelola berita dari seluruh pengguna, termasuk pin/unpin."
-      : "Berita yang pernah kamu buat. Kamu hanya bisa mengubah/menghapus berita milikmu sendiri.";
+      ? "Kelola pengumuman dari seluruh pengguna, termasuk pin/unpin."
+      : "Pengumuman yang pernah kamu buat. Kamu hanya bisa mengubah/menghapus pengumuman milikmu sendiri.";
     const pinField = document.getElementById("newsPinField");
     if (pinField) pinField.hidden = !manager;
   }
@@ -1283,7 +1283,7 @@
     if (newsAdminTab === "draft") list = list.filter(n => n.status === "draft");
 
     if (!list.length) {
-      container.innerHTML = '<p class="empty-state">Belum ada berita.</p>';
+      container.innerHTML = '<p class="empty-state">Belum ada pengumuman.</p>';
       return;
     }
 
@@ -1312,9 +1312,9 @@
           ${item.authorName ? `<span class="admin-news-item-meta">Oleh ${escapeHtml(item.authorName)} · ${newsRoleLabel(item.authorRole)}</span>` : ""}
         </div>
         <div class="admin-news-item-actions">
-          ${manager ? `<button type="button" class="admin-btn admin-btn-ghost" data-news-pin="${item.id}" aria-label="Pin/unpin berita"><i class="fa-solid fa-thumbtack"></i></button>` : ""}
-          ${canEdit ? `<button type="button" class="admin-btn admin-btn-ghost" data-news-edit="${item.id}" aria-label="Edit berita"><i class="fa-regular fa-pen-to-square"></i></button>` : ""}
-          ${canEdit ? `<button type="button" class="admin-btn-icon-danger" data-news-delete="${item.id}" aria-label="Hapus berita"><i class="fa-solid fa-trash"></i></button>` : ""}
+          ${manager ? `<button type="button" class="admin-btn admin-btn-ghost" data-news-pin="${item.id}" aria-label="Pin/unpin pengumuman"><i class="fa-solid fa-thumbtack"></i></button>` : ""}
+          ${canEdit ? `<button type="button" class="admin-btn admin-btn-ghost" data-news-edit="${item.id}" aria-label="Edit pengumuman"><i class="fa-regular fa-pen-to-square"></i></button>` : ""}
+          ${canEdit ? `<button type="button" class="admin-btn-icon-danger" data-news-delete="${item.id}" aria-label="Hapus pengumuman"><i class="fa-solid fa-trash"></i></button>` : ""}
         </div>
       </div>`;
     }).join("");
@@ -1344,7 +1344,7 @@
           method: "PUT",
           body: JSON.stringify({ id: item.id, isPinned: !item.isPinned })
         });
-        showToast(item.isPinned ? "Berita di-unpin." : "Berita berhasil di-pin.", "success");
+        showToast(item.isPinned ? "Pengumuman di-unpin." : "Pengumuman berhasil di-pin.", "success");
         loadNewsAdmin();
       } catch (error) {
         showToast(error.message, "error");
@@ -1357,7 +1357,7 @@
       const item = allNewsAdmin.find(n => n.id === deleteBtn.dataset.newsDelete);
       if (!item) return;
       const confirmed = await askConfirm({
-        title: "Hapus berita ini?",
+        title: "Hapus pengumuman ini?",
         body: `"${item.title}" akan dihapus permanen dan tidak dapat dikembalikan.`,
         okLabel: "Hapus"
       });
@@ -1367,7 +1367,7 @@
           method: "DELETE",
           body: JSON.stringify({ id: item.id })
         });
-        showToast("Berita berhasil dihapus.", "success");
+        showToast("Pengumuman berhasil dihapus.", "success");
         loadNewsAdmin();
       } catch (error) {
         showToast(error.message, "error");
@@ -1431,7 +1431,7 @@
     newsPreviewWrap.hidden = true;
     newsUploadPlaceholder.hidden = false;
     document.getElementById("newsPin").checked = false;
-    document.getElementById("newsFormTitle").textContent = "Tambah Berita";
+    document.getElementById("newsFormTitle").textContent = "Tambah Pengumuman";
     document.getElementById("newsCancelEdit").hidden = true;
     setStatus(document.getElementById("newsStatus"), "", null);
   }
@@ -1465,7 +1465,7 @@
       newsPreviewWrap.hidden = true;
       newsUploadPlaceholder.hidden = false;
     }
-    document.getElementById("newsFormTitle").textContent = `Edit Berita — ${item.title}`;
+    document.getElementById("newsFormTitle").textContent = `Edit Pengumuman — ${item.title}`;
     document.getElementById("newsCancelEdit").hidden = false;
     setStatus(document.getElementById("newsStatus"), "", null);
     goToPanel("berita");
@@ -1484,7 +1484,7 @@
     const content = newsContentEditable.innerHTML.trim();
 
     if (!title) return setStatus(statusEl, "Judul wajib diisi.", "error");
-    if (!content || content === "<br>") return setStatus(statusEl, "Isi berita wajib diisi.", "error");
+    if (!content || content === "<br>") return setStatus(statusEl, "Isi pengumuman wajib diisi.", "error");
 
     const id = document.getElementById("newsId").value;
     const activeBtn = document.getElementById(newsSubmitStatus === "published" ? "newsPublish" : "newsSaveDraft");
@@ -1504,10 +1504,10 @@
     try {
       if (id) {
         await api("/api/admin/gallery?resource=news", { method: "PUT", body: JSON.stringify({ id, ...payload }) });
-        showToast("Berita berhasil diperbarui.", "success");
+        showToast("Pengumuman berhasil diperbarui.", "success");
       } else {
         await api("/api/admin/gallery?resource=news", { method: "POST", body: JSON.stringify(payload) });
-        showToast(newsSubmitStatus === "published" ? "Berita berhasil dipublikasikan." : "Berita berhasil disimpan sebagai draft.", "success");
+        showToast(newsSubmitStatus === "published" ? "Pengumuman berhasil dipublikasikan." : "Pengumuman berhasil disimpan sebagai draft.", "success");
       }
       resetNewsForm();
       loadNewsAdmin();
