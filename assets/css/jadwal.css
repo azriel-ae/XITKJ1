@@ -1,0 +1,144 @@
+/* =========================
+   jadwal.css
+   Styling untuk fitur Jadwal Pelajaran di halaman Pengumuman (/berita):
+   - Tab utama [ Pengumuman | Jadwal Pelajaran ]
+   - Kartu Hari Ini & Besok (berdampingan di desktop, ditumpuk di mobile)
+   Warna & radius mengikuti identitas situs yang sudah ada (variables.css) —
+   tidak ada warna baru (charcoal/lime/putih/abu-abu saja).
+   ========================= */
+
+/* ---------- Tab utama halaman Pengumuman ---------- */
+
+.page-mode-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 0 32px;
+  flex-wrap: wrap;
+}
+
+.page-mode-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.page-mode-tab:hover { border-color: var(--color-lime); color: var(--color-text); }
+
+.page-mode-tab.is-active {
+  background: var(--color-charcoal);
+  border-color: var(--color-charcoal);
+  color: #fff;
+}
+
+.page-mode-tab.is-active i { color: var(--color-lime); }
+
+/* ---------- Wrapper Jadwal Pelajaran ---------- */
+
+.jadwal-wrap { display: flex; flex-direction: column; gap: 20px; }
+
+.jadwal-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .jadwal-columns { grid-template-columns: 1fr; }
+}
+
+.jadwal-day-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+}
+
+.jadwal-day-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 4px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-lime-dark);
+}
+
+.jadwal-day-heading i { color: var(--color-lime-dark); }
+
+.jadwal-day-date {
+  margin: 0 0 18px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.jadwal-list { display: flex; flex-direction: column; gap: 12px; }
+
+.jadwal-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-background-alt);
+}
+
+.jadwal-item-time {
+  flex: 0 0 auto;
+  min-width: 92px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--color-lime-dark);
+  padding-top: 2px;
+}
+
+.jadwal-item-body { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.jadwal-item-mapel { font-weight: 700; color: var(--color-text); overflow-wrap: anywhere; }
+.jadwal-item-guru { font-size: 0.86rem; color: var(--color-text-muted); overflow-wrap: anywhere; }
+
+.jadwal-empty {
+  padding: 28px 16px;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+/* ---------- Mobile: tidak boleh ada horizontal scroll ---------- */
+
+@media (max-width: 767.98px) {
+  .jadwal-day-card { padding: 18px; }
+  .jadwal-item { flex-wrap: wrap; }
+  .jadwal-item-time { min-width: 0; }
+}
+
+/* ---------- Admin: panel Jadwal Pelajaran (admin.html) ---------- */
+
+.admin-jadwal-days { display: flex; flex-direction: column; gap: 22px; }
+
+.admin-jadwal-day-group { display: flex; flex-direction: column; gap: 10px; }
+
+.admin-jadwal-day-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--color-charcoal);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--color-light-gray);
+}

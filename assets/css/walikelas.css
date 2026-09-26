@@ -1,0 +1,224 @@
+/* ==========================================================
+   WALI KELAS
+   Diselaraskan dengan design system kartu situs (site-card /
+   news-card / gallery-card di atas .section-dark): background
+   solid var(--color-surface-dark), border tipis putih transparan,
+   radius & shadow standar, hover ringan — tanpa glassmorphism,
+   blur, blob animasi, atau glow berlebihan.
+   Struktur & class lama (walikelas-*) dipertahankan sepenuhnya
+   agar walikelas.js tidak perlu diubah.
+   ========================================================== */
+
+.wk-redesign {
+  position: relative;
+}
+
+.walikelas-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* ---------- Kartu utama ---------- */
+
+.walikelas-feature {
+  display: grid;
+  grid-template-columns: minmax(200px, 300px) 1fr;
+  align-items: center;
+  gap: 48px;
+  padding: 40px;
+  background: linear-gradient(160deg, var(--color-surface-dark), var(--color-charcoal));
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.walikelas-feature:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-lime);
+}
+
+/* ---------- Kolom foto ---------- */
+
+.walikelas-photo-col {
+  position: relative;
+}
+
+.walikelas-photo-frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-charcoal);
+  border: 1px solid rgba(255, 255, 255, .1);
+}
+
+.walikelas-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transform: scale(1);
+  transition: transform var(--transition-slow);
+}
+
+.walikelas-feature:hover .walikelas-photo,
+.walikelas-photo-frame:focus-within .walikelas-photo {
+  transform: scale(1.035);
+}
+
+/* ---------- Kolom informasi ---------- */
+
+.walikelas-info {
+  min-width: 0;
+}
+
+.walikelas-nama {
+  margin: 0 0 12px;
+  font-family: var(--font-main);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 2.6vw + 1rem, 2.4rem);
+  line-height: 1.15;
+  letter-spacing: -.01em;
+  color: #fff;
+}
+
+.walikelas-jabatan {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--color-muted-gray);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.walikelas-jabatan-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-lime);
+}
+
+.walikelas-ig {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  margin-top: 22px;
+  padding: 9px 18px 9px 12px;
+  border-radius: 999px;
+  background: rgba(163, 230, 53, .08);
+  border: 1px solid rgba(163, 230, 53, .25);
+  color: var(--color-muted-gray);
+  font-size: .88rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.walikelas-ig i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(163, 230, 53, .14);
+  color: var(--color-lime);
+  font-size: .9rem;
+}
+
+.walikelas-ig strong { color: #fff; font-weight: 700; }
+
+.walikelas-ig:hover,
+.walikelas-ig:focus-visible {
+  background: rgba(163, 230, 53, .14);
+  border-color: var(--color-lime);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.walikelas-quote {
+  margin: 24px 0 0;
+  padding-top: 20px;
+  max-width: 46ch;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.walikelas-quote::before {
+  margin-right: 3px;
+  color: var(--color-lime);
+  font-style: normal;
+  font-weight: 800;
+  content: "\201C";
+}
+
+/* ---------- Skeleton (dark-aware) ---------- */
+
+.walikelas-skeleton .walikelas-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+}
+
+.walikelas-skel-line { height: 16px; border-radius: 6px; }
+.walikelas-skel-line.is-wide { width: 68%; height: 32px; }
+.walikelas-skel-line.is-mid { width: 42%; }
+.walikelas-skel-line.is-narrow { width: 30%; margin-top: 8px; }
+
+.walikelas-wrap .skeleton-block {
+  background-color: var(--color-surface-dark);
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, .04) 25%, rgba(255, 255, 255, .14) 37%, rgba(255, 255, 255, .04) 63%);
+  background-size: 400% 100%;
+}
+
+.walikelas-wrap .walikelas-photo-frame.skeleton-block { border-radius: var(--radius-md); }
+
+/* ---------- Error / empty state (menumpang class .empty-state global) ---------- */
+
+.walikelas-wrap .empty-state strong { display: block; margin-bottom: 6px; color: #fff; font-size: 1.05rem; }
+.walikelas-wrap .empty-state p { margin: 0; font-size: .92rem; }
+
+/* ---------- Tablet ---------- */
+
+@media (max-width: 991.98px) {
+  .walikelas-feature { gap: 36px; padding: 32px; }
+}
+
+/* ---------- Mobile: stack, tetap seimbang, aman dari overflow ---------- */
+
+@media (max-width: 767.98px) {
+  .walikelas-feature {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding: 26px 22px;
+    border-radius: var(--radius-md);
+  }
+  .walikelas-photo-col { width: 100%; max-width: 230px; margin: 0 auto; }
+  .walikelas-info { text-align: center; }
+  .walikelas-jabatan { justify-content: center; }
+  .walikelas-ig { margin-left: auto; margin-right: auto; }
+  .walikelas-quote { margin-left: auto; margin-right: auto; }
+}
+
+@media (max-width: 380px) {
+  .walikelas-feature { padding: 22px 16px; gap: 22px; }
+  .walikelas-photo-col { max-width: 200px; }
+  .walikelas-quote { font-size: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .walikelas-feature,
+  .walikelas-photo,
+  .walikelas-ig { transition: none; }
+}

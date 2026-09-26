@@ -1,0 +1,26 @@
+[
+  {
+    "judul": "Foto Kelas 1",
+    "foto": "assets/img/galeri/fotokelas1.png"
+  },
+  {
+    "judul": "Foto Kelas 2",
+    "foto": "assets/img/galeri/fotokelas2.png"
+  },
+  {
+    "judul": "Foto Kelas 3",
+    "foto": "assets/img/galeri/fotokelas3.png"
+  },
+  {
+    "judul": "Foto Kelas 4",
+    "foto": "assets/img/galeri/fotokelas4.png"
+  },
+  {
+    "judul": "Foto Kelas 5",
+    "foto": "assets/img/galeri/fotokelas5.png"
+  },
+  {
+    "judul": "Foto Kelas 6",
+    "foto": "assets/img/galeri/fotokelas6.png"
+  }
+]

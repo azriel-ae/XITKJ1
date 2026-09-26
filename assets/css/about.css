@@ -1,0 +1,182 @@
+/* =====================================================================
+   TENTANG KAMI — editorial redesign
+   Tidak lagi memakai "card" besar; konten menyatu langsung dengan
+   background section (off-white). Kolom kiri = identitas/narasi,
+   kolom kanan = foto kelas yang "bleed" sampai tepi layar dengan
+   soft-fade di sisi kiri agar menyatu dengan halaman (bukan ditempel
+   di dalam kotak/frame).
+   ===================================================================== */
+
+.about-section { overflow: hidden; }
+
+/* Grid utama: [gutter kiri] [konten] [jarak] [foto -> tembus ke tepi viewport] */
+.about-grid {
+  --about-gutter: max(18px, calc((100vw - var(--container-width)) / 2 + 18px));
+  display: grid;
+  grid-template-columns: var(--about-gutter) minmax(300px, 520px) clamp(28px, 5vw, 84px) 1fr;
+  align-items: stretch;
+}
+
+.about-eyebrow {
+  grid-column: 2; grid-row: 1;
+  display: inline-flex; align-items: center; gap: 10px;
+  align-self: start;
+  margin: 8px 0 24px;
+  font-size: .76rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--color-primary);
+}
+.about-eyebrow-line { width: 26px; height: 2px; border-radius: 2px; background: var(--color-primary); display: inline-block; }
+
+.about-heading {
+  grid-column: 2; grid-row: 2;
+  margin: 0 0 24px;
+  font-size: clamp(2.35rem, 5vw, 3.65rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -.02em;
+  color: var(--color-text);
+}
+
+.about-desc {
+  grid-column: 2; grid-row: 3;
+  max-width: 460px;
+  margin: 0 0 36px;
+  color: var(--color-text-muted);
+  line-height: 1.85;
+  font-size: 1.02rem;
+}
+.about-desc strong { color: var(--color-text); font-weight: 700; }
+
+.about-stats {
+  grid-column: 2; grid-row: 4;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 30px;
+  margin: 0 0 42px;
+}
+.about-stat { display: flex; align-items: center; gap: 13px; }
+.about-stat-icon {
+  flex: none;
+  width: 44px; height: 44px;
+  display: inline-grid; place-items: center;
+  border-radius: 50%;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: 1rem;
+}
+.about-stat-info { display: flex; flex-direction: column; line-height: 1.3; }
+.about-stat-info strong { font-size: 1.1rem; font-weight: 800; color: var(--color-text); white-space: nowrap; }
+.about-stat-info span { font-size: .7rem; font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: .05em; }
+
+.about-tagline {
+  grid-column: 2; grid-row: 5;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  margin: 0;
+  align-self: start;
+  font-family: 'Caveat', 'Plus Jakarta Sans', cursive;
+  font-size: 1.85rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+.about-tagline-swash { width: 148px; height: 11px; color: var(--color-primary); }
+
+/* Visual kanan — bleed sampai tepi viewport, dengan soft fade di sisi kiri
+   dan bentuk lembut samar di belakangnya, bukan foto di dalam kotak/card. */
+.about-visual-wrap {
+  grid-column: 4; grid-row: 1 / 6;
+  position: relative;
+  min-height: 460px;
+}
+.about-visual-shape {
+  position: absolute;
+  top: -8%; bottom: -8%; left: -18%; right: 6%;
+  background: radial-gradient(60% 55% at 32% 22%, var(--color-accent-soft-2) 0%, rgba(228, 242, 196, 0) 72%);
+  filter: blur(4px);
+  z-index: 0;
+  pointer-events: none;
+}
+.about-photo {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  min-height: 460px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(112deg, transparent 0%, transparent 3%, #000 22%);
+  mask-image: linear-gradient(112deg, transparent 0%, transparent 3%, #000 22%);
+}
+.about-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  display: block;
+  transition: transform .6s var(--transition-slow);
+}
+.about-visual-wrap:hover .about-photo img { transform: scale(1.035); }
+
+/* Detail bawah section: garis tipis full-width + label kecil + indikator */
+.about-bottom-outer { border-top: 1px solid var(--color-border); margin-top: 8px; }
+.about-bottom {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 20px 18px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.about-bottom-tags {
+  display: flex; align-items: center; gap: 10px;
+  font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.about-bottom-sep { color: var(--color-border); }
+.about-bottom-dots { display: flex; align-items: center; gap: 8px; }
+.about-bottom-dots span { width: 22px; height: 2px; border-radius: 2px; background: var(--color-border); }
+.about-bottom-dots span.is-active { width: 30px; background: var(--color-primary); }
+
+/* ===================== Mobile / tablet ===================== */
+@media (max-width: 991.98px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+  .about-eyebrow,
+  .about-heading,
+  .about-desc,
+  .about-visual-wrap,
+  .about-stats,
+  .about-tagline {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .about-eyebrow { order: 1; margin-top: 0; }
+  .about-heading { order: 2; }
+  .about-desc { order: 3; max-width: 100%; }
+  .about-visual-wrap { order: 4; min-height: 260px; margin: 6px 0 34px; }
+  .about-stats { order: 5; row-gap: 18px; }
+  .about-tagline { order: 6; }
+
+  .about-visual-shape { display: none; }
+  .about-photo {
+    min-height: 260px;
+    border-radius: 18px;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .about-bottom { padding-left: 20px; padding-right: 20px; }
+}
+
+@media (max-width: 575.98px) {
+  .about-stat-info strong { font-size: 1rem; }
+  .about-stats { gap: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-visual-wrap:hover .about-photo img { transform: none; }
+}
