@@ -1,0 +1,185 @@
+/* ==========================================================
+   WALI KELAS
+   Komposisi editorial: foto besar dengan frame offset lime
+   (kiri) + hierarki informasi (kanan). Selalu tampil di atas
+   latar charcoal (.section-dark), jadi warna di sini "dark-first".
+   ========================================================== */
+
+.walikelas-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.walikelas-feature {
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) 1fr;
+  align-items: center;
+  gap: 60px;
+}
+
+/* ---------- Kolom foto ---------- */
+
+.walikelas-photo-col {
+  position: relative;
+}
+
+/* Offset frame: blok lime tipis mengintip di belakang foto —
+   pengganti shadow/glow untuk memberi kedalaman & karakter grafis. */
+.walikelas-photo-col::before {
+  content: "";
+  position: absolute;
+  inset: 16px -16px -16px 16px;
+  background: var(--color-lime);
+  border-radius: var(--radius-lg);
+  z-index: 0;
+}
+
+.walikelas-photo-frame {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-surface-dark);
+  border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.walikelas-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transform: scale(1);
+  transition: transform var(--transition-slow);
+}
+
+.walikelas-photo-frame:hover .walikelas-photo,
+.walikelas-photo-frame:focus-within .walikelas-photo {
+  transform: scale(1.03);
+}
+
+/* ---------- Kolom informasi ---------- */
+
+.walikelas-info {
+  min-width: 0;
+}
+
+.walikelas-nama {
+  margin: 0 0 10px;
+  font-family: var(--font-main);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 2.6vw + 1rem, 2.4rem);
+  line-height: 1.15;
+  letter-spacing: -.01em;
+  color: #fff;
+}
+
+.walikelas-jabatan {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--color-muted-gray);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.walikelas-jabatan-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-lime);
+}
+
+.walikelas-ig {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin-top: 20px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(163, 230, 53, .08);
+  border: 1px solid rgba(163, 230, 53, .25);
+  color: var(--color-muted-gray);
+  font-size: .88rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.walikelas-ig i { color: var(--color-lime); font-size: .95rem; }
+.walikelas-ig strong { color: #fff; font-weight: 700; }
+
+.walikelas-ig:hover,
+.walikelas-ig:focus-visible {
+  background: rgba(163, 230, 53, .16);
+  border-color: var(--color-lime);
+  color: #fff;
+}
+
+.walikelas-quote {
+  margin: 22px 0 0;
+  padding-top: 18px;
+  max-width: 46ch;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.walikelas-quote::before {
+  margin-right: 3px;
+  color: var(--color-lime);
+  font-style: normal;
+  font-weight: 800;
+  content: "\201C";
+}
+
+/* ---------- Skeleton (dark-aware) ---------- */
+
+.walikelas-skeleton .walikelas-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+}
+
+.walikelas-skel-line { height: 16px; border-radius: 6px; }
+.walikelas-skel-line.is-wide { width: 68%; height: 32px; }
+.walikelas-skel-line.is-mid { width: 42%; }
+.walikelas-skel-line.is-narrow { width: 30%; margin-top: 8px; }
+
+.walikelas-wrap .skeleton-block {
+  background-color: var(--color-surface-dark);
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, .04) 25%, rgba(255, 255, 255, .14) 37%, rgba(255, 255, 255, .04) 63%);
+  background-size: 400% 100%;
+}
+
+.walikelas-wrap .walikelas-photo-frame.skeleton-block { border-radius: var(--radius-lg); }
+
+/* ---------- Error / empty state (menumpang class .empty-state global) ---------- */
+
+.walikelas-wrap .empty-state strong { display: block; margin-bottom: 6px; color: #fff; font-size: 1.05rem; }
+.walikelas-wrap .empty-state p { margin: 0; font-size: .92rem; }
+
+/* ---------- Tablet ---------- */
+
+@media (max-width: 991.98px) {
+  .walikelas-feature { gap: 40px; }
+}
+
+/* ---------- Mobile: stack, tetap seimbang ---------- */
+
+@media (max-width: 767.98px) {
+  .walikelas-feature { grid-template-columns: 1fr; gap: 30px; }
+  .walikelas-photo-col { width: 100%; max-width: 280px; margin: 0 auto; }
+  .walikelas-info { text-align: center; }
+  .walikelas-jabatan { justify-content: center; }
+  .walikelas-ig { margin-left: auto; margin-right: auto; }
+  .walikelas-quote { margin-left: auto; margin-right: auto; }
+}

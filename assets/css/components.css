@@ -1,0 +1,39 @@
+.site-card {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.site-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--color-lime);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.site-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--color-lime); }
+.site-card:hover::before { opacity: 1; }
+.icon-box {
+  width: 48px;
+  height: 48px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-soft);
+  color: var(--color-lime-dark);
+  font-size: 1.05rem;
+}
+.btn-primary-custom, .btn-outline-custom { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 10px 22px; border-radius: var(--radius-sm); font-weight: 600; text-decoration: none; transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition), border-color var(--transition); }
+.btn-primary-custom { color: var(--color-charcoal); background: var(--color-lime); border: 1px solid var(--color-lime); }
+.btn-outline-custom { color: #fff; background: transparent; border: 1px solid var(--color-gray); }
+.btn-primary-custom:hover { transform: translateY(-2px); background: var(--color-lime-dark); border-color: var(--color-lime-dark); box-shadow: var(--shadow-sm); }
+.btn-outline-custom:hover { transform: translateY(-2px); border-color: var(--color-lime); color: var(--color-lime); }
+.back-to-top { position: fixed; right: 22px; bottom: 22px; z-index: 1000; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--color-charcoal); color: var(--color-lime); box-shadow: var(--shadow-md); opacity: 0; visibility: hidden; transform: translateY(8px); transition: var(--transition); }
+.back-to-top.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
+.back-to-top:hover { background: var(--color-soft-black); box-shadow: var(--shadow-glow); }
